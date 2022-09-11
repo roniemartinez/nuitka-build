@@ -1,0 +1,59 @@
+name: Build OSX Bundle
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build-osx-package:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache Nuitka build files
+        uses: actions/cache@v3
+        with:
+          path: |
+            build/myapp.build
+            build/myapp.dist
+            /Users/runner/Library/Application Support/Nuitka/
+          key: ${{ runner.os }}-nuitka
+
+      - name: Setup Python version
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Build app bundle
+        env:
+          LDFLAGS: '-lintl'
+        run: |
+          nuitka3 \
+          --assume-yes-for-downloads \
+          --macos-create-app-bundle \
+          --macos-disable-console \
+          --output-dir=build \
+          --plugin-enable=pyside6 \
+          --show-progress \
+          --standalone \
+          --static-libpython=no \
+          myapp.py
+          
+      - name: Upload package
+        uses: actions/upload-artifact@v3
+        if: ${{ success() }}
+        with:
+          name: myapp.app
+          path: build/myapp.app
