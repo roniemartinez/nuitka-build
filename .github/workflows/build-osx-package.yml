@@ -1,4 +1,4 @@
-name: Build OSX Bundle
+name: Build OSX package
 
 on:
   push:
@@ -50,10 +50,21 @@ jobs:
           --standalone \
           --static-libpython=no \
           myapp.py
+
+      - name: Build package
+        run: |
+          pkgbuild \
+          --component-plist osx/component.plist \
+          --filter myapp.build \
+          --filter myapp.dist \
+          --identifier com.myapp.app \
+          --install-location /Applications \
+          --root build \
+          installer/myapp.pkg
           
       - name: Upload package
         uses: actions/upload-artifact@v3
         if: ${{ success() }}
         with:
-          name: myapp.app
-          path: build/myapp.app
+          name: myapp.pkg
+          path: installer/myapp.pkg
