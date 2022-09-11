@@ -37,8 +37,6 @@ jobs:
           pip install -r requirements.txt
 
       - name: Build app bundle
-        env:
-          LDFLAGS: '-lintl'
         run: |
           nuitka3 \
           --assume-yes-for-downloads \
