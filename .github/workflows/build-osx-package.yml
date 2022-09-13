@@ -43,7 +43,7 @@ jobs:
       - name: Setup Python version
         uses: "gabrielfalcao/pyenv-action@v9"
         with:
-          default: 3.10.5
+          default: 3.10
           command: |
             pip install -U pip setuptools
             pip install -r requirements.txt
