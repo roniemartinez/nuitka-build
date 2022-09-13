@@ -17,13 +17,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Cache Homebrew
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/Library/Caches/Homebrew
-          key: ${{ runner.os }}-brew
-
       - name: Cache Python modules
         uses: actions/cache@v3
         with:
@@ -42,12 +35,7 @@ jobs:
 
       - name: Setup Python version
         run: |
-          brew update
-          brew install pyenv
-          echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
-          echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
-          echo 'eval "$(pyenv init -)"' >> ~/.zshrc
-          source ~/.zshrc
+          curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
           pyenv install 3.10.6
           pyenv local 3.10.6
 
