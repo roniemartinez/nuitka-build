@@ -27,10 +27,10 @@ jobs:
           key: ${{ runner.os }}-nuitka
 
       - name: Setup Python version
-        uses: gabrielfalcao/pyenv-action@v9
-        with:
-          default: "3.10"
-          command: pip install -U pip
+        run: |
+          brew install pyenv
+          pyenv install 3.10.6
+          pyenv local 3.10.6
 
       - name: Install dependencies
         run: |
@@ -38,7 +38,7 @@ jobs:
 
       - name: Build app bundle
         run: |
-          nuitka \
+          nuitka3 \
           --assume-yes-for-downloads \
           --macos-create-app-bundle \
           --macos-disable-console \
