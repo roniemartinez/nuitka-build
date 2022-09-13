@@ -17,6 +17,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Cache Homebrew
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/Library/Caches/Homebrew
+          key: ${{ runner.os }}-brew
+
+      - name: Cache Python modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/Library/Caches/pip
+          key: ${{ runner.os }}-python
+
       - name: Cache Nuitka build files
         uses: actions/cache@v3
         with:
@@ -28,7 +42,7 @@ jobs:
 
       - name: Setup Python version
         run: |
-          brew install pyenv
+          brew install openssl readline sqlite3 xz zlib
           pyenv install 3.10.6
           pyenv local 3.10.6
 
@@ -59,7 +73,7 @@ jobs:
           --install-location /Applications \
           --root build \
           installer/myapp.pkg
-          
+
       - name: Upload package
         uses: actions/upload-artifact@v3
         if: ${{ success() }}
