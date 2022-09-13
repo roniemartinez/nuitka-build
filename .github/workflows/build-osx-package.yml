@@ -47,6 +47,8 @@ jobs:
           command: |
             pip install -U pip setuptools
             pip install -r requirements.txt
+            pyenv versions
+            pyenv install --list
 
       - name: Build app bundle
         run: |
