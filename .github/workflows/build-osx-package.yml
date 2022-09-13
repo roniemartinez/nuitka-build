@@ -42,7 +42,8 @@ jobs:
 
       - name: Setup Python version
         run: |
-          brew install openssl readline sqlite3 xz zlib
+          brew update
+          brew install pyenv
           pyenv install 3.10.6
           pyenv local 3.10.6
 
