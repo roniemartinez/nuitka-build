@@ -27,10 +27,10 @@ jobs:
           key: ${{ runner.os }}-nuitka
 
       - name: Setup Python version
-        uses: actions/setup-python@v4
+        uses: gabrielfalcao/pyenv-action@v9
         with:
-          python-version: '3.10'
-          cache: 'pip'
+          default: "3.10"
+          command: pip install -U pip
 
       - name: Install dependencies
         run: |
@@ -46,7 +46,7 @@ jobs:
           --plugin-enable=pyside6 \
           --show-progress \
           --standalone \
-          --static-libpython=no \
+          --static-libpython=yes \
           myapp.py
 
       - name: Build package
