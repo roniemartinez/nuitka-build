@@ -38,7 +38,7 @@ jobs:
 
       - name: Build app bundle
         run: |
-          nuitka3 \
+          nuitka \
           --assume-yes-for-downloads \
           --macos-create-app-bundle \
           --macos-disable-console \
