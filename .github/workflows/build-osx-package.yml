@@ -48,7 +48,6 @@ jobs:
 
       - name: Setup Python version
         run: |
-          which pyenv
           pyenv install 3.10.6
           pyenv local 3.10.6
           python -V
