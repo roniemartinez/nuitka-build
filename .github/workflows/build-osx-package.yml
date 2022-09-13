@@ -41,19 +41,22 @@ jobs:
           key: ${{ runner.os }}-nuitka
 
       - name: Setup Python version
-        uses: "gabrielfalcao/pyenv-action@v9"
-        with:
-          default: "3.10"
-          command: |
-            pip install -U pip setuptools
-            pip install -r requirements.txt
-            pyenv versions
-            pyenv install --list
+        run: |
+          export PATH="$HOME/.pyenv/bin:$PATH"
+          curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+          exec $SHELL
+          which pyenv
+          pyenv install 3.10.6
+          pyenv local 3.10.6
+          python -V
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
 
       - name: Build app bundle
         run: |
-          pyenv local 3.10.4
-          python -V
+          pyenv local 3.10.6
           nuitka3 \
           --assume-yes-for-downloads \
           --macos-create-app-bundle \
