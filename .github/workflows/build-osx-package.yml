@@ -35,6 +35,7 @@ jobs:
 
       - name: Setup Python version
         run: |
+          export PATH="$HOME/.pyenv/bin:$PATH"
           curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
           pyenv install 3.10.6
           pyenv local 3.10.6
