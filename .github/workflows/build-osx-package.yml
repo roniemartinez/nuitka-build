@@ -40,11 +40,14 @@ jobs:
             /Users/runner/Library/Application Support/Nuitka/
           key: ${{ runner.os }}-nuitka
 
-      - name: Setup Python version
+      - name: Install pyenv
         run: |
           export PATH="$HOME/.pyenv/bin:$PATH"
           curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
           exec $SHELL
+
+      - name: Setup Python version
+        run: |
           which pyenv
           pyenv install 3.10.6
           pyenv local 3.10.6
