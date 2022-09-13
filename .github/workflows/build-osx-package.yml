@@ -43,14 +43,14 @@ jobs:
       - name: Setup Python version
         uses: "gabrielfalcao/pyenv-action@v9"
         with:
-          default: 3.10
+          default: "3.10.6"
           command: |
             pip install -U pip setuptools
             pip install -r requirements.txt
 
       - name: Build app bundle
         run: |
-          pyenv local 3.10
+          pyenv local 3.10.6
           python -V
           nuitka3 \
           --assume-yes-for-downloads \
