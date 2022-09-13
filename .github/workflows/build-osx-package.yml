@@ -50,6 +50,8 @@ jobs:
 
       - name: Build app bundle
         run: |
+          pyenv local 3.10
+          python -V
           nuitka3 \
           --assume-yes-for-downloads \
           --macos-create-app-bundle \
