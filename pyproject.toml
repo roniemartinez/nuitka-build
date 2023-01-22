@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "nuitka-build"
+version = "0.1.0"
+description = ""
+authors = ["Ronie Martinez <ronmarti18@gmail.com>"]
+readme = "README.md"
+packages = [{include = "nuitka_build"}]
+
+[tool.poetry.dependencies]
+python = "^3.11,<3.12"
+Nuitka = "^1.0.6"
+PySide6 = "^6.4.2"
+imageio = "^2.21.2"
+ordered-set = "^4.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
